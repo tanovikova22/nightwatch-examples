@@ -18,7 +18,7 @@ node {
                     sh "npm test" 
                 } finally {
                     sh "pwd" 
-                    junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: "${pwd}/tests_output/*.xml"  
+                    junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/tests_output/*.xml'
                 }
 
             }
