@@ -1,7 +1,7 @@
 node {
     stage("checkout") {
             git branch: 'main', credentialsId: 'git-personal', url: 'https://github.com/tanovikova22/nightwatch-examples.git'
-            
+
             echo "last commit:"
             sh "git log --name-status HEAD^..HEAD"
             echo BUILD_NUMBER
@@ -14,8 +14,13 @@ node {
     }
     stage("tests") {
             nodejs('nodejs') { 
-                sh "npm test"
-                sh "pwd"
+                try {
+                    sh "npm test" 
+                } finally {
+                    sh "pwd" 
+                    junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: "${pwd}/tests_output/*.xml"  
+                }
+
             }
     }
 }
