@@ -4,7 +4,7 @@
   "description": "A Nightwatch 2 boilerplate project which runs the bundled examples in Github Actions against Google Chrome",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch --env chrome --reporter=html"
+    "test": "nightwatch"
   },
   "repository": {
     "type": "git",
