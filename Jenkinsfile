@@ -17,8 +17,8 @@ node {
                 try {
                     sh "npm test" 
                 } finally {
-                    cd ./tests_output
-                    cp *.xml $WORKSPACE
+                    sh 'cd ./tests_output'
+                    sh 'cp *.xml $WORKSPACE'
                     junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/tests_output/*.xml'
                 }
 
