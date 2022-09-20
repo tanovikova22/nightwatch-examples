@@ -17,7 +17,8 @@ node {
                 try {
                     sh "npm test" 
                 } catch(err) {
-                    sh 'npm test --retries'
+                    echo 'retring failed tests'
+                    sh 'npm test --retries 2'
                 }finally {
                     sh 'echo $WORKSPACE'
                     junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: 'tests_output/*.xml', skipPublishingChecks: true
