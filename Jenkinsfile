@@ -16,7 +16,7 @@ node {
             nodejs('nodejs') { 
                 try {
                     sh "npm test" 
-                } catch {
+                } catch(err) {
                     sh 'npm test --retries'
                 }finally {
                     sh 'echo $WORKSPACE'
