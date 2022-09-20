@@ -19,6 +19,12 @@ node {
                 } finally {
                     sh 'echo $WORKSPACE'
                     junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: 'tests_output/*.xml'
+
+                    def RERUN = currentBuild.getRawBuild().actions.find { it instanceof ParametersAction }?.parameters.find {
+                        it.name == 'surefire.rerunFailingTestsCount'
+                    }?.value
+
+                    echo RERUN
                 }
 
             }
