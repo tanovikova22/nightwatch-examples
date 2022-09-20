@@ -15,15 +15,12 @@ node {
     stage("tests") {
             nodejs('nodejs') { 
                 try {
-                    // sh "npm test" 
-                    sh 'echo test'
-                } finally {
+                    sh "npm test" 
+                } catch {
+                    sh 'npm test --retries'
+                }finally {
                     sh 'echo $WORKSPACE'
                     junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: 'tests_output/*.xml', skipPublishingChecks: true
-
-                    def RERUN = currentBuild.getRawBuild().actions
-
-                    sh  'echo RERUN'
                 }
 
             }
