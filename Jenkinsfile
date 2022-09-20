@@ -18,11 +18,9 @@ node {
                     sh "npm test" 
                 } finally {
                     sh 'echo $WORKSPACE'
-                    junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: 'tests_output/*.xml'
+                    junit testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: 'tests_output/*.xml', skipPublishingChecks: true
 
-                    def RERUN = currentBuild.getRawBuild().actions.find { it instanceof ParametersAction }?.parameters.find {
-                        it.name == 'surefire.rerunFailingTestsCount'
-                    }?.value
+                    def RERUN = currentBuild.getRawBuild().actions.find { it instanceof ParametersAction }
 
                     echo RERUN
                 }
